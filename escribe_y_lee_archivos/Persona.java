@@ -9,7 +9,7 @@ public class Persona implements Comparable<Persona> {
 
 	private String apellidos;
 
-	private String dni;
+	private int dni;
 
 	
 	Direccion d;
@@ -19,7 +19,7 @@ public class Persona implements Comparable<Persona> {
 		
 	}
 
-	public Persona(String nombre, String apellidos, String dni,int edad,String calle, int numero,int cp, String Provincia ) {
+	public Persona(String nombre, String apellidos, int dni,int edad,String calle, int numero,int cp, String Provincia ) {
 		
 		this.nombre = nombre;
 		this.edad = edad;
@@ -64,13 +64,13 @@ public class Persona implements Comparable<Persona> {
 
 	}
 
-	public String getDni() {
+	public int getDni() {
 
 		return dni;
 
 	}
 
-	public void setDni(String dni) {
+	public void setDni(int dni) {
 
 		this.dni = dni;
 
@@ -78,13 +78,13 @@ public class Persona implements Comparable<Persona> {
 
 	public String toString() {
 		
-		return nombre+apellidos+dni+edad+" "+d.getCalle()+" "+d.getNumero()+"       "+d.getCp()+d.getProvincia();
+		return nombre+""+apellidos+ dni+""+""+edad+""+""+d.getCalle()+" "+d.getNumero()+""+d.getCp()+d.getProvincia();
 		
 	}
 	public  int compareTo (Persona personas) {
 		 
 		 	 
-		 return (apellidos).compareTo(personas.getApellidos());
+		 return (nombre).compareTo(personas.getNombre());
 	}
 	
 

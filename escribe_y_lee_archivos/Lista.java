@@ -1,34 +1,38 @@
 package escribe_y_lee_archivos;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-
+import java.util.*;
 
 public class Lista  {
+	Scanner sc =new Scanner (System.in);
 	
 	static ArrayList<Persona> personas=new ArrayList<Persona>();
-	
 	
 	public Lista() {
 		
 		
 	}
 	
-	public  void cargar() {
+	public void cargar() {
 		
 	        try {
 	        	
-	        	ArrayList<String[]> datos=new ArrayList<String[]>();
 	        	
-	        	
+	        	String cvsSplit=",";	        	
 	        	BufferedReader br = new BufferedReader(new FileReader("lista.csv"));
 	        	String linea=br.readLine();
 	        	while(linea!=null){
-	        	datos.add(linea.split(","));
-	        	linea=br.readLine();
+	        		
+	        		String[] datos=linea.split(cvsSplit) ;	
+	        		linea=br.readLine();
+	        		personas.add(new Persona(datos[0],datos[1],Integer.parseInt(datos[2]),Integer.parseInt(datos[3]),datos[4],Integer.parseInt(datos[5]),Integer.parseInt(datos[6]),datos[7]));
 	        	}
 	        	 br.close();
 	            
@@ -39,33 +43,60 @@ public class Lista  {
 	            System.out.println("No se puede leer el fichero tenerife.txt");
 	        }
 	      
-	    }
+}
 	
-	
-		
-			
 	public void listar() {
+		for (Persona a: personas) {
+			System.out.println("Nombre/"+"Apellidos/"+"DNI/"+"Edad/"+"Calle/"+"Numero/"+"CP/"+"Provincia");
 		
-	Lista listardt = new Lista();
-	listardt.cargar();
-	
-	System.out.println(listardt);
-			
+			System.out.println(a);
 		}
+	}
 		
 		
 	
 	
-	public static void insertar(Persona c) {
-		personas.add(c);
+	public void insertar() {
+		System.out.println("\n vamos a introducir los datos de la persona");
+		System.out.println("Nombre :");
+		String nombre = sc.next();
+
+		System.out.println("Apellidos :");
+		String apellidos = sc.next();
+
+		System.out.println("DNI:");
+		int dni = sc.nextInt();
+		
+		System.out.println("Edad:");
+		int edad = sc.nextInt();
+		
+		System.out.println("Numero :");
+		int numero = sc.nextInt();
+
+
+		System.out.println("Calle :");
+		String calle = sc.next();
+		
+		
+		System.out.println("Código Postal");
+		int cp = sc.nextInt();
+
+		System.out.println("Provincia :");
+		String provincia=sc.next();
+		
+
+
+		personas.add(new Persona(nombre,apellidos,dni,edad,calle,numero,cp,provincia));
 
 			
 
 		
 	}
 	
-	public static void eliminar (int p) {
-		
+	public void eliminar () {
+		System.out.println("Linea del nombre a eliminar");
+		int p = sc.nextInt();
+
 		personas.remove(p);
 	}
 	
@@ -74,9 +105,9 @@ public class Lista  {
 	}
 	
 	
-	public void buscadni(String dni) {
+	public void buscadni(int dni) {
 	   
-	  ArrayList<String> search = new ArrayList<String>();
+	  ArrayList<Integer> search = new ArrayList<Integer>();
 	  
 		
 		for (Persona busca : personas) {
@@ -96,8 +127,27 @@ public class Lista  {
 	    
 	   } 
 
-	
+	public void buscarnombre (String nom){
 		
+		ArrayList<String> buscanom = new ArrayList<>();
+		
+		for (Persona nombres : personas) {
+			nombres.getNombre().equalsIgnoreCase(nom);
+			buscanom.add(nombres.getNombre());
+						
+			if (nombres.getNombre().equalsIgnoreCase(nom)||nombres.getNombre().contains(nom)) {
+				
+				System.out.println(nombres);
+			
+			}else {
+				
+				System.out.println(" ");
+		
+			}
+			
+		}
+	}
+
 		
 	
 		public void ordenar() {
@@ -109,9 +159,26 @@ public class Lista  {
 		 
 	 }
 		 
+		public void guardar() {
+			
+			try {
+				
+				BufferedWriter escritura = new BufferedWriter(new FileWriter("listas.csv"));
+				
+				for (Persona listado:personas) {
+					
+					System.out.println(listado);
+					escritura.write(listado+"/n");
+								
+			}
+				escritura.close(); }
+			
+			catch (Exception e) {
+					System.out.print("Ha habído un error");
+	}
 	
-	
+
 }
-	
+}
 
 
